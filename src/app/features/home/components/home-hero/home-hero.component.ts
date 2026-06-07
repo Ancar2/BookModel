@@ -1,11 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-export interface HomeHeroStat {
-  readonly label: string;
-  readonly value: string;
-}
-
 export interface HomeHeroContent {
   readonly eyebrow: string;
   readonly title: string;
@@ -15,10 +10,6 @@ export interface HomeHeroContent {
   readonly primaryCtaLink: string;
   readonly secondaryCtaLabel: string;
   readonly secondaryCtaLink: string;
-  readonly metrics: readonly HomeHeroStat[];
-  readonly showcaseTag: string;
-  readonly showcaseTitle: string;
-  readonly showcaseSubtitle: string;
   readonly socialLinks: readonly HomeHeroSocialLink[];
 }
 
