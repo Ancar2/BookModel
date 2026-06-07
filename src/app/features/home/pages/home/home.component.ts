@@ -14,23 +14,23 @@ import {
 })
 export class HomeComponent {
   protected readonly heroContent: HomeHeroContent = {
-    eyebrow: 'Model Book 2026',
-    title: 'Presence that owns the frame,',
-    highlight: 'story that stays with it.',
+    eyebrow: 'Mafe Ayala',
+    title: 'Imagen, actitud y presencia',
+    highlight: 'para editoriales y campanas.',
     description:
-      'An editorial-first introduction for a model book that feels premium, modern and ready to scale into campaigns, polaroids, runway and contact sections.',
-    primaryCtaLabel: 'View portfolio',
+      'Descubre el book de Mafe Ayala, una propuesta visual pensada para marcas, agencias y proyectos que buscan una presencia autentica, versatil y lista para destacar frente a camara.',
+    primaryCtaLabel: 'Ver book',
     primaryCtaLink: '/auth/register',
-    secondaryCtaLabel: 'Book a session',
+    secondaryCtaLabel: 'Contactar',
     secondaryCtaLink: '/auth/login',
     metrics: [
-      { label: 'Editorials', value: '24+' },
-      { label: 'Campaigns', value: '12' },
-      { label: 'Cities', value: 'Bogota / CDMX / Miami' }
+      { label: 'Editoriales', value: '24+' },
+      { label: 'Campanas', value: '12' },
+      { label: 'Ciudades', value: 'Bogota / CDMX / Miami' }
     ],
-    showcaseTag: 'New face selection',
-    showcaseTitle: 'Editorial identity with a cinematic fashion mood.',
+    showcaseTag: 'Portafolio destacado',
+    showcaseTitle: 'Una identidad visual que conecta con moda, campanas y contenido editorial.',
     showcaseSubtitle:
-      'Structured as a modular homepage so each next section can evolve independently without coupling layout, copy and showcase logic.'
+      'Explora una seleccion de imagenes y video donde Mafe Ayala proyecta versatilidad, caracter y una presencia lista para nuevas oportunidades.'
   };
 }

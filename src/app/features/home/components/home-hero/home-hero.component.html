@@ -33,16 +33,36 @@
       </dl>
     </div>
 
-    <aside class="hero__showcase" aria-label="Editorial preview">
+    <aside class="hero__showcase" aria-label="Vista previa editorial">
       <div class="hero__frame">
         <div class="hero__portrait hero__portrait--main">
+          <img
+            class="hero__portrait-image"
+            src="/photos/portada.jpg"
+            alt="Portada principal del hero"
+          />
           <span>{{ content().showcaseTag }}</span>
         </div>
         <div class="hero__detail-card">
           <p>{{ content().showcaseTitle }}</p>
           <span>{{ content().showcaseSubtitle }}</span>
         </div>
-        <div class="hero__portrait hero__portrait--accent"></div>
+        <div class="hero__portrait hero__portrait--accent">
+          <video
+            #demoVideo
+            class="hero__portrait-video"
+            src="/videos/demo.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            disableremoteplayback
+            disablepictureinpicture
+            (loadedmetadata)="ensureVideoMuted()"
+            aria-label="Video de demostracion"
+          ></video>
+        </div>
       </div>
     </aside>
   </div>
