@@ -3,5 +3,65 @@
 }
 
 .home-page {
+  position: relative;
   min-height: 100vh;
+  padding-top: var(--home-navbar-height);
+}
+
+.home-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  animation: home-intro-fade-out 320ms ease var(--home-intro-duration) both;
+}
+
+.home-intro__logo {
+  width: min(88vw, 78rem);
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+  animation: home-intro-logo var(--home-intro-duration) cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes home-intro-logo {
+  0% {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+    transform: scale(0.62);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(0.58);
+  }
+}
+
+@keyframes home-intro-fade-out {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (width <= 720px) {
+  .home-intro__logo {
+    width: 92vw;
+  }
 }

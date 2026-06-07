@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  ViewChild,
-  input
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 export interface HomeHeroStat {
@@ -26,6 +19,12 @@ export interface HomeHeroContent {
   readonly showcaseTag: string;
   readonly showcaseTitle: string;
   readonly showcaseSubtitle: string;
+  readonly socialLinks: readonly HomeHeroSocialLink[];
+}
+
+export interface HomeHeroSocialLink {
+  readonly label: string;
+  readonly href: string;
 }
 
 @Component({
@@ -36,27 +35,6 @@ export interface HomeHeroContent {
   styleUrl: './home-hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeHeroComponent implements AfterViewInit {
-  @ViewChild('demoVideo')
-  private readonly demoVideo?: ElementRef<HTMLVideoElement>;
-
+export class HomeHeroComponent {
   readonly content = input.required<HomeHeroContent>();
-
-  ngAfterViewInit(): void {
-    this.ensureVideoMuted();
-  }
-
-  ensureVideoMuted(): void {
-    const video = this.demoVideo?.nativeElement;
-
-    if (!video) {
-      return;
-    }
-
-    video.defaultMuted = true;
-    video.muted = true;
-    video.volume = 0;
-
-    void video.play().catch(() => undefined);
-  }
 }

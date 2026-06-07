@@ -1,3 +1,10 @@
 <main class="home-page">
+  @if (showIntro()) {
+    <div class="home-intro" aria-hidden="true">
+      <img class="home-intro__logo" src="/logoConNombre.jpg" alt="" />
+    </div>
+  }
+
+  <app-home-navbar />
   <app-home-hero [content]="heroContent" />
 </main>

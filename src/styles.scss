@@ -16,6 +16,8 @@
   --shadow-soft: 0 20px 60px rgb(10 6 5 / 0.22);
   --glass-bg: rgb(255 248 240 / 0.05);
   --glass-border: 1px solid rgb(255 248 240 / 0.1);
+  --home-navbar-height: 4.4rem;
+  --home-intro-duration: 3s;
 }
 
 html {
@@ -25,10 +27,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-body);
-  background:
-    radial-gradient(circle at top left, rgb(118 77 58 / 0.32), transparent 32%),
-    radial-gradient(circle at right 20%, rgb(217 176 140 / 0.14), transparent 24%),
-    linear-gradient(180deg, #120d0b 0%, #1a120f 46%, #120d0b 100%);
+  background-color: #120d0b;
   color: var(--color-text);
   min-height: 100vh;
 }
@@ -72,4 +71,10 @@ img {
 ::selection {
   background: rgb(241 196 155 / 0.25);
   color: var(--color-text);
+}
+
+@media (width <= 720px) {
+  :root {
+    --home-navbar-height: 4rem;
+  }
 }

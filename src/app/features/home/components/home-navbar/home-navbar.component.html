@@ -1,0 +1,52 @@
+<nav class="navbar" aria-label="Principal">
+  <div class="navbar__shell">
+    <a class="navbar__brand" routerLink="/" (click)="closeMenu()" aria-label="Inicio">
+      <img class="navbar__logo" src="/logo.png" alt="Logo de Mafe Ayala" />
+    </a>
+
+    <div class="navbar__links" aria-label="Secciones principales">
+      @for (item of navigationItems; track item.label) {
+        <a class="navbar__link" [href]="item.href" (click)="closeMenu()">
+          {{ item.label }}
+        </a>
+      }
+    </div>
+
+    <div class="navbar__actions">
+      <a class="navbar__contact" href="mailto:booking@mafeayala.com">booking@mafeayala.com</a>
+      <a class="navbar__cta" href="#contacto">Solicitar book</a>
+    </div>
+
+    <button
+      type="button"
+      class="navbar__toggle"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="home-navbar-panel"
+      aria-label="Abrir menu"
+      (click)="toggleMenu()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div
+    id="home-navbar-panel"
+    class="navbar__panel"
+    [class.navbar__panel--open]="menuOpen()"
+  >
+    <div class="navbar__panel-links">
+      @for (item of navigationItems; track item.label) {
+        <a class="navbar__panel-link" [href]="item.href" (click)="closeMenu()">
+          {{ item.label }}
+        </a>
+      }
+    </div>
+
+    <div class="navbar__panel-footer">
+      <a class="navbar__panel-contact" href="mailto:booking@mafeayala.com">booking@mafeayala.com</a>
+      <a class="navbar__panel-cta" href="#contacto" (click)="closeMenu()">Solicitar book</a>
+    </div>
+  </div>
+</nav>

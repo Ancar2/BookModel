@@ -1,17 +1,17 @@
 <section class="hero" aria-labelledby="home-hero-title">
-  <div class="hero__backdrop" aria-hidden="true">
-    <span class="hero__orb hero__orb--sand"></span>
-    <span class="hero__orb hero__orb--rose"></span>
-    <span class="hero__grid"></span>
-  </div>
+  <span class="hero__back-word" aria-hidden="true">MODEL</span>
 
   <div class="hero__content">
     <div class="hero__copy">
       <p class="hero__eyebrow">{{ content().eyebrow }}</p>
+
       <h1 id="home-hero-title" class="hero__title">
-        {{ content().title }}
-        <span>{{ content().highlight }}</span>
+        <span class="hero__title-line">{{ content().title }}</span>
+        <span class="hero__title-line hero__title-line--delay">{{ content().highlight }}</span>
       </h1>
+
+      <span class="hero__rule" aria-hidden="true"></span>
+
       <p class="hero__description">{{ content().description }}</p>
 
       <div class="hero__actions">
@@ -23,47 +23,16 @@
         </a>
       </div>
 
-      <dl class="hero__metrics">
-        @for (metric of content().metrics; track metric.label) {
-          <div class="hero__metric">
-            <dt>{{ metric.label }}</dt>
-            <dd>{{ metric.value }}</dd>
-          </div>
+      <div class="hero__socials" aria-label="Redes y contacto">
+        @for (item of content().socialLinks; track item.label; let last = $last) {
+          <a class="hero__social-link" [href]="item.href">
+            {{ item.label }}
+          </a>
+          @if (!last) {
+            <span class="hero__social-divider" aria-hidden="true"></span>
+          }
         }
-      </dl>
-    </div>
-
-    <aside class="hero__showcase" aria-label="Vista previa editorial">
-      <div class="hero__frame">
-        <div class="hero__portrait hero__portrait--main">
-          <img
-            class="hero__portrait-image"
-            src="/photos/portada.jpg"
-            alt="Portada principal del hero"
-          />
-          <span>{{ content().showcaseTag }}</span>
-        </div>
-        <div class="hero__detail-card">
-          <p>{{ content().showcaseTitle }}</p>
-          <span>{{ content().showcaseSubtitle }}</span>
-        </div>
-        <div class="hero__portrait hero__portrait--accent">
-          <video
-            #demoVideo
-            class="hero__portrait-video"
-            src="/videos/demo.mp4"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            disableremoteplayback
-            disablepictureinpicture
-            (loadedmetadata)="ensureVideoMuted()"
-            aria-label="Video de demostracion"
-          ></video>
-        </div>
       </div>
-    </aside>
+    </div>
   </div>
 </section>
