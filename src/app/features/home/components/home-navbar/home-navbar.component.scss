@@ -238,7 +238,7 @@
   padding: 1.2rem;
 }
 
-@media (width <= 960px) {
+@media (width <= 899px) {
   .navbar__shell {
     grid-template-columns: auto 1fr auto;
   }
@@ -255,6 +255,37 @@
 
   .navbar__panel {
     display: block;
+  }
+}
+
+@media (900px <= width <= 1365px) {
+  .navbar__shell {
+    gap: 1rem;
+    padding-inline: 1.2rem;
+  }
+
+  .navbar__logo {
+    width: 3.6rem;
+  }
+
+  .navbar__links {
+    gap: 0.2rem;
+  }
+
+  .navbar__link {
+    padding-inline: 0.55rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  .navbar__contact {
+    font-size: 0.72rem;
+  }
+
+  .navbar__cta {
+    min-height: 2.1rem;
+    padding: 0.52rem 0.78rem;
+    font-size: 0.7rem;
   }
 }
 
