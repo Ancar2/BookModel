@@ -1,0 +1,49 @@
+<section class="hero" aria-labelledby="home-hero-title">
+  <div class="hero__backdrop" aria-hidden="true">
+    <span class="hero__orb hero__orb--sand"></span>
+    <span class="hero__orb hero__orb--rose"></span>
+    <span class="hero__grid"></span>
+  </div>
+
+  <div class="hero__content">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">{{ content().eyebrow }}</p>
+      <h1 id="home-hero-title" class="hero__title">
+        {{ content().title }}
+        <span>{{ content().highlight }}</span>
+      </h1>
+      <p class="hero__description">{{ content().description }}</p>
+
+      <div class="hero__actions">
+        <a class="hero__button hero__button--primary" [routerLink]="content().primaryCtaLink">
+          {{ content().primaryCtaLabel }}
+        </a>
+        <a class="hero__button hero__button--secondary" [routerLink]="content().secondaryCtaLink">
+          {{ content().secondaryCtaLabel }}
+        </a>
+      </div>
+
+      <dl class="hero__metrics">
+        @for (metric of content().metrics; track metric.label) {
+          <div class="hero__metric">
+            <dt>{{ metric.label }}</dt>
+            <dd>{{ metric.value }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+
+    <aside class="hero__showcase" aria-label="Editorial preview">
+      <div class="hero__frame">
+        <div class="hero__portrait hero__portrait--main">
+          <span>{{ content().showcaseTag }}</span>
+        </div>
+        <div class="hero__detail-card">
+          <p>{{ content().showcaseTitle }}</p>
+          <span>{{ content().showcaseSubtitle }}</span>
+        </div>
+        <div class="hero__portrait hero__portrait--accent"></div>
+      </div>
+    </aside>
+  </div>
+</section>

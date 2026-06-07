@@ -1,0 +1,35 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Create Account</h2>
+        <p class="subtitle">Join us today! Enter your details below.</p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            @if (errorMessage) {
+            <div class="error-alert">{{ errorMessage }}</div>
+            }
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" formControlName="name" placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password" placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="registerForm.invalid">
+                Sign Up
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a routerLink="/auth/login">Sign in</a>
+        </div>
+    </div>
+</div>
