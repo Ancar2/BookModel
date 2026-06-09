@@ -1,5 +1,5 @@
 :root {
-  --color-background: #C3C3C3;
+  --color-background: #BCBCBB;
   --color-surface: #1a1310;
   --color-surface-strong: #241b17;
   --color-text: #f8efe8;
@@ -75,6 +75,7 @@ img {
 
 @media (width <= 720px) {
   :root {
+    --color-background: #D2D2D1;
     --home-navbar-height: 4rem;
   }
 }

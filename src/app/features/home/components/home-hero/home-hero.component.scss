@@ -4,10 +4,10 @@
 
 .hero {
   position: relative;
-  height: calc(100svh - var(--home-navbar-height));
-  min-height: calc(100svh - var(--home-navbar-height));
-  max-height: calc(100svh - var(--home-navbar-height));
-  background: linear-gradient(180deg, #120d0b 0%, #1a120f 46%, #120d0b 100%);
+  height: calc(100dvh - var(--home-navbar-height));
+  min-height: calc(100dvh - var(--home-navbar-height));
+  max-height: calc(100dvh - var(--home-navbar-height));
+  background: #BCBCBB;
   overflow: clip;
 }
 
@@ -17,9 +17,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: calc(100svh - var(--home-navbar-height));
-  min-height: calc(100svh - var(--home-navbar-height));
-  max-height: calc(100svh - var(--home-navbar-height));
+  height: calc(100dvh - var(--home-navbar-height));
+  min-height: calc(100dvh - var(--home-navbar-height));
+  max-height: calc(100dvh - var(--home-navbar-height));
   padding: clamp(2rem, 5vw, 4rem);
 }
 
@@ -431,8 +431,9 @@
 
 @media (width <= 899px) {
   .hero {
+    background: #D2D2D1;
     height: 100dvh;
-    min-height: calc(100dvh - var(--home-navbar-height));
+    min-height: 100dvh;
     max-height: 100dvh;
   }
 
@@ -445,9 +446,9 @@
   .hero__content {
     align-items: center;
     justify-content: flex-start;
-    height: calc(100dvh - var(--home-navbar-height));
-    min-height: calc(100dvh - var(--home-navbar-height));
-    max-height: calc(100dvh - var(--home-navbar-height));
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
     padding: 1.05rem 1rem 0.95rem;
   }
 

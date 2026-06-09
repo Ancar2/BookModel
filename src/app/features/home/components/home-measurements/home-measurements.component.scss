@@ -4,9 +4,10 @@
 
 .measurements {
   position: relative;
-  margin-top: -3.4rem;
-  padding-top: 5.6rem;
+  margin-top: -1.4rem;
+  padding-top: 4.6rem;
   overflow: visible;
+
 }
 
 .measurements__bridge {
@@ -14,9 +15,13 @@
   top: -5.6rem;
   left: 2rem;
   width: 100%;
-  height: calc(100% + 5.6rem);
+  height: calc(100% + 9.6rem);
   z-index: 0;
   pointer-events: none;
+}
+
+.measurements__bridge--mobile {
+  display: none;
 }
 
 .measurements__bridge path {
@@ -141,8 +146,15 @@
 
 @media (width <= 899px) {
   .measurements {
-    margin-top: -4.2rem;
-    padding: 4.2rem 1rem 3.5rem;
+    margin-top: -4.6rem;
+    padding: 2.6rem 1rem 3.5rem;
+  }
+
+  .measurements__bridge {
+    top: -2.6rem;
+    left: 1.2rem;
+    width: calc(100% - 1.2rem);
+    height: calc(100% + 2.6rem);
   }
 
   .measurements__shell {
@@ -176,21 +188,41 @@
 
 @media (width <= 599px) {
   .measurements {
-    margin-top: -3.3rem;
-    padding: 3.3rem 0.85rem 3.1rem;
+    margin-top: -1.5rem;
+    padding: 1.5rem 0.85rem 3.1rem;
+  }
+
+  .measurements__bridge {
+    display: none;
+  }
+
+  .measurements__bridge--mobile {
+    display: block;
+    top: -1rem;
+    left: 0.5rem;
+    width: calc(91% + 1.2rem);
+    height: calc(100% + 1.5rem);
   }
 
   .measurements__shell {
-    width: min(94%, 40rem);
+    width: min(88%, 24rem);
+    margin: 0 auto;
+    padding: 6.1rem 0.55rem 0.55rem;
   }
 
   .measurements__grid {
-    gap: 0.62rem;
-    padding-inline: 0.4rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 0.82rem;
+    padding-inline: 0.28rem;
   }
 
   .measure-card {
-    min-height: 7.85rem;
+    max-width: none;
+    min-height: 8.8rem;
+    aspect-ratio: 1.02 / 1;
+    overflow: hidden;
   }
 
   .measure-card::before {
@@ -206,21 +238,25 @@
   .measure-card__icon {
     right: 0.5rem;
     bottom: 0.5rem;
-    width: 2.2rem;
-    opacity: 0.3;
+    width: 4.9rem;
+    opacity: 0.46;
   }
 
   .measure-card__content {
-    padding: 0.82rem 0.72rem 0.62rem;
+    padding: 0.95rem 0.82rem 0.72rem;
   }
 
   .measure-card__label {
-    font-size: 0.56rem;
-    letter-spacing: 0.1em;
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    max-width: 4.5rem;
+    line-height: 1.16;
+    white-space: normal;
   }
 
   .measure-card__value {
-    font-size: 1.34rem;
-    padding-right: 0.1rem;
+    font-size: 1.72rem;
+    line-height: 0.95;
+    padding-right: 0.14rem;
   }
 }
