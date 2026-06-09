@@ -7,3 +7,9 @@
   min-height: 100vh;
   padding-top: var(--home-navbar-height);
 }
+
+@media (width <= 899px) {
+  .home-page {
+    padding-top: 0;
+  }
+}
