@@ -1,8 +1,26 @@
-<section class="measurements" aria-labelledby="home-measurements-title">
+<section class="measurements" aria-label="Medidas de la modelo">
+  <svg
+    class="measurements__bridge"
+    viewBox="-10 671.66 1832 438.34000000000003"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M10 681.66 L385 681.66 C385 681.66, 395 681.66, 395 691.66 L395 833.66 C395 833.66, 395 843.66, 405 843.66 L1802 843.66 C1802 843.66, 1812 843.66, 1812 853.66 L1812 1089.999995 C1812 1089.999995, 1812 1099.999995, 1802 1099.999995 L1629.3271445 1099.999995 C1629.3271445 1099.999995, 1629.327142 1099.999995, 1629.327142 1099.9999975 L1629.327142 1099.9999975 C1629.327142 1099.9999975, 1629.327142 1100, 1629.3271395000002 1100 L235 1100 C235 1100, 225 1100, 225 1090 L225 878.3399999999999 C225 878.3399999999999, 225 868.3399999999999, 215 868.3399999999999 L10 868.3399999999999 C10 868.3399999999999, 0 868.3399999999999, 0 858.3399999999999 L0 691.66 C0 691.66, 0 681.66, 10 681.66"
+    />
+  </svg>
+
   <div class="measurements__shell">
     <div class="measurements__grid">
       @for (item of items(); track item.label) {
         <article class="measure-card" [attr.aria-label]="item.label + ' ' + item.value">
+          <img
+            class="measure-card__icon"
+            [src]="item.iconSrc"
+            alt=""
+            aria-hidden="true"
+          />
+
           <svg
             class="measure-card__shape"
             viewBox="261 312 390 205"

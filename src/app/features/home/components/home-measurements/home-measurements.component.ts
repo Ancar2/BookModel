@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export interface HomeMeasurementItem {
+  iconSrc: string;
   label: string;
   value: string;
 }
