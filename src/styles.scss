@@ -1,5 +1,5 @@
 :root {
-  --color-background: #120d0b;
+  --color-background: #C3C3C3;
   --color-surface: #1a1310;
   --color-surface-strong: #241b17;
   --color-text: #f8efe8;
@@ -27,7 +27,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-body);
-  background-color: #120d0b;
+  background-color: var(--color-background);
   color: var(--color-text);
   min-height: 100vh;
 }

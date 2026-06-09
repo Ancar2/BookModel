@@ -1,0 +1,143 @@
+:host {
+  display: block;
+}
+
+.measurements {
+  position: relative;
+}
+
+.measurements__shell {
+  width: 100%;
+  margin: 0;
+}
+
+.measurements__grid {
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
+  
+}
+
+.measure-card {
+  position: relative;
+  min-height: clamp(10.4rem, 16vw, 11.8rem);
+  aspect-ratio: 390 / 205;
+  isolation: isolate;
+  transition: transform 180ms ease;
+}
+
+.measure-card:hover {
+  transform: translateY(-2px);
+}
+
+.measure-card__shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 18px 40px rgb(10 6 5 / 0.18));
+}
+
+.measure-card__shape path {
+  fill: rgb(255 248 240 / 0.08);
+  stroke: rgb(255 248 240 / 0.22);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.measure-card::before {
+  position: absolute;
+  inset: 0.6rem;
+  border-radius: 1.75rem;
+  background: linear-gradient(180deg, rgb(255 248 240 / 0.1), rgb(255 248 240 / 0.04));
+  opacity: 0.88;
+  backdrop-filter: blur(18px);
+  content: '';
+}
+
+.measure-card__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.55rem 1.45rem 1.15rem;
+}
+
+.measure-card__label {
+  color: rgb(248 239 232 / 0.76);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.measure-card__value {
+  align-self: flex-end;
+  color: rgb(248 239 232 / 0.96);
+  font-family: var(--font-display);
+  max-width: 100%;
+  padding-right: 0.25rem;
+  font-size: clamp(1.8rem, 3vw, 2.55rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  text-align: right;
+}
+
+@media (width <= 899px) {
+  .measurements {
+    padding: 0 1rem 3.5rem;
+  }
+
+  .measurements__grid {
+    grid-template-columns: repeat(4, minmax(10.4rem, 1fr));
+    gap: 0.9rem;
+  }
+
+  .measure-card__content {
+    padding: 1.1rem 1rem 0.92rem;
+  }
+
+  .measure-card__label {
+    font-size: 0.68rem;
+  }
+
+  .measure-card__value {
+    font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+  }
+}
+
+@media (width <= 599px) {
+  .measurements {
+    padding: 0 0.85rem 3.1rem;
+  }
+
+  .measurements__grid {
+    grid-template-columns: repeat(4, minmax(7rem, 1fr));
+    gap: 0.62rem;
+  }
+
+  .measure-card {
+    min-height: 7.85rem;
+  }
+
+  .measure-card::before {
+    inset: 0.32rem;
+    border-radius: 1rem;
+  }
+
+  .measure-card__content {
+    padding: 0.82rem 0.72rem 0.62rem;
+  }
+
+  .measure-card__label {
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+  }
+
+  .measure-card__value {
+    font-size: 1.34rem;
+    padding-right: 0.1rem;
+  }
+}

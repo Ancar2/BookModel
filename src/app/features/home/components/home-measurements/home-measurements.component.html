@@ -1,0 +1,25 @@
+<section class="measurements" aria-labelledby="home-measurements-title">
+  <div class="measurements__shell">
+    <div class="measurements__grid">
+      @for (item of items(); track item.label) {
+        <article class="measure-card" [attr.aria-label]="item.label + ' ' + item.value">
+          <svg
+            class="measure-card__shape"
+            viewBox="261 312 390 205"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M281 322 L558 322 C558 322, 568 322, 568 332 L568 387 C568 387, 568 397, 578 397 L631 397 C631 397, 641 397, 641 407 L641 497 C641 497, 641 507, 631 507 L510 507 C510 507, 500 507, 500 497 L500 442 C500 442, 500 432, 490 432 L281 432 C281 432, 271 432, 271 422 L271 332 C271 332, 271 322, 281 322"
+            />
+          </svg>
+
+          <div class="measure-card__content">
+            <p class="measure-card__label">{{ item.label }}</p>
+            <p class="measure-card__value">{{ item.value }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

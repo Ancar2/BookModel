@@ -355,10 +355,8 @@
 .hero::after {
   background:
     radial-gradient(circle at 35% 35%, rgb(255 239 216 / 0.5), transparent 12%),
-    radial-gradient(circle at 88% 76%, rgb(233 178 163 / 0.34), transparent 10%),
-    linear-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.06) 1px, transparent 1px);
-  background-size: auto, auto, 4rem 4rem, 4rem 4rem;
+    radial-gradient(circle at 88% 76%, rgb(233 178 163 / 0.34), transparent 10%);
+  background-size: auto, auto;
   mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
   opacity: 0.55;
 }
