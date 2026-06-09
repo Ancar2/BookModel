@@ -1,4 +1,4 @@
-<section class="hero" aria-labelledby="home-hero-title">
+<section #heroSection class="hero" aria-labelledby="home-hero-title">
   <span class="hero__back-word" aria-hidden="true">MODEL</span>
 
   <div class="hero__content">
@@ -41,10 +41,24 @@
 
     <aside class="hero__video-card" aria-label="Preview de video">
       <div class="hero__video-frame">
+        <button
+          type="button"
+          class="hero__video-mute"
+          [attr.aria-pressed]="isVideoMuted()"
+          [attr.aria-label]="isVideoMuted() ? 'Activar sonido' : 'Silenciar video'"
+          (click)="toggleVideoMuted()"
+        >
+          <span class="hero__video-mute-icon" aria-hidden="true">
+            <span class="hero__video-mute-speaker"></span>
+            @if (isVideoMuted()) {
+              <span class="hero__video-mute-off"></span>
+            }
+          </span>
+        </button>
         <video
           #demoVideo
           class="hero__video"
-          src="/videos/demo2.MOV"
+          src="/videos/demo-all.MOV"
           autoplay
           muted
           defaultMuted
@@ -53,7 +67,7 @@
           preload="metadata"
           disableremoteplayback
           disablepictureinpicture
-          (loadedmetadata)="ensureVideoMuted()"
+          (loadedmetadata)="ensureVideoAudioState()"
           aria-label="Video demo de pasarela"
         ></video>
       </div>

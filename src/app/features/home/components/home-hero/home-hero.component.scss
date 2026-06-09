@@ -66,6 +66,92 @@
   aspect-ratio: 0.92;
 }
 
+.hero__video-mute {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  min-height: 0;
+  padding: 0;
+  border: 1px solid rgb(255 248 240 / 0.3);
+  border-radius: 999px;
+  background: rgb(24 17 16 / 0.55);
+  color: rgb(255 248 240 / 0.95);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.hero__video-mute:hover {
+  border-color: rgb(255 248 240 / 0.48);
+  background: rgb(24 17 16 / 0.72);
+  transform: translateY(-1px);
+}
+
+.hero__video-mute-icon {
+  position: relative;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+}
+
+.hero__video-mute-speaker {
+  position: absolute;
+  top: 50%;
+  left: 0.08rem;
+  width: 0.28rem;
+  height: 0.42rem;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+
+.hero__video-mute-speaker::before {
+  position: absolute;
+  top: 50%;
+  left: -0.22rem;
+  width: 0;
+  height: 0;
+  border-top: 0.2rem solid transparent;
+  border-bottom: 0.2rem solid transparent;
+  border-right: 0.26rem solid currentColor;
+  transform: translateY(-50%);
+  content: '';
+}
+
+.hero__video-mute-speaker::after {
+  position: absolute;
+  top: 50%;
+  left: 0.42rem;
+  width: 0.32rem;
+  height: 0.32rem;
+  border: 2px solid currentColor;
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 0 0.4rem 0 0;
+  transform: translateY(-50%) rotate(45deg);
+  content: '';
+}
+
+.hero__video-mute-off {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.1rem;
+  height: 2px;
+  background: #ff5d5d;
+  border-radius: 999px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  box-shadow: 0 0 10px rgb(255 93 93 / 0.2);
+}
+
 .hero__video {
   width: 100%;
   height: 100%;
@@ -374,6 +460,13 @@
     font-size: 0.62rem;
   }
 
+  .hero__video-mute {
+    top: 0.35rem;
+    right: 0.35rem;
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
   .hero__back-word {
     right: -1.2rem;
     font-size: clamp(4.8rem, 24vw, 7rem);
@@ -434,6 +527,11 @@
     right: 25rem;
     bottom: 0.65rem;
     width: 13.65rem;
+  }
+
+  .hero__video-mute {
+    width: 1.95rem;
+    height: 1.95rem;
   }
 
   .hero__eyebrow {
