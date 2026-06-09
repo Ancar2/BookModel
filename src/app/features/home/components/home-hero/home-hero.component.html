@@ -36,7 +36,7 @@
     </div>
 
     <aside class="hero__photo-card" aria-hidden="true">
-      <img class="hero__photo-card-image" src="/photos/portada2.jpg" alt="" />
+      <img class="hero__photo-card-image" [src]="content().photoCard.src" alt="" />
     </aside>
 
     <aside class="hero__video-card" aria-label="Preview de video">
@@ -58,7 +58,7 @@
         <video
           #demoVideo
           class="hero__video"
-          src="/videos/demo-all.MOV"
+          [src]="content().videoCard.src"
           autoplay
           muted
           defaultMuted
@@ -68,14 +68,14 @@
           disableremoteplayback
           disablepictureinpicture
           (loadedmetadata)="ensureVideoAudioState()"
-          aria-label="Video demo de pasarela"
+          [attr.aria-label]="content().videoCard.ariaLabel"
         ></video>
       </div>
 
       <div class="hero__video-meta">
         <div>
-          <p class="hero__video-label">Reel Model</p>
-          <span class="hero__video-time">00:28</span>
+          <p class="hero__video-label">{{ content().videoCard.label }}</p>
+          <span class="hero__video-time">{{ content().videoCard.duration }}</span>
         </div>
         <span class="hero__video-line" aria-hidden="true"></span>
       </div>

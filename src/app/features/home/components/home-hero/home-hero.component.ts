@@ -19,12 +19,25 @@ export interface HomeHeroContent {
   readonly primaryCtaLink: string;
   readonly secondaryCtaLabel: string;
   readonly secondaryCtaLink: string;
+  readonly photoCard: HomeHeroPhotoCardContent;
   readonly socialLinks: readonly HomeHeroSocialLink[];
+  readonly videoCard: HomeHeroVideoCardContent;
 }
 
 export interface HomeHeroSocialLink {
   readonly label: string;
   readonly href: string;
+}
+
+export interface HomeHeroVideoCardContent {
+  readonly src: string;
+  readonly label: string;
+  readonly duration: string;
+  readonly ariaLabel: string;
+}
+
+export interface HomeHeroPhotoCardContent {
+  readonly src: string;
 }
 
 @Component({

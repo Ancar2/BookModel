@@ -10,6 +10,15 @@ export const HERO_CONTENT: HomeHeroContent = {
   primaryCtaLink: '/auth/register',
   secondaryCtaLabel: 'Solicitar book',
   secondaryCtaLink: '/auth/login',
+  photoCard: {
+    src: '/photos/portada2.jpg'
+  },
+  videoCard: {
+    src: '/videos/demo-all.MOV',
+    label: 'Reel Model',
+    duration: '00:28',
+    ariaLabel: 'Video demo de pasarela'
+  },
   socialLinks: [
     { label: 'Instagram', href: 'https://instagram.com/' },
     { label: 'TikTok', href: 'https://tiktok.com/' },
