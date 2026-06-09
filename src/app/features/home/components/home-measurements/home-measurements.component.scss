@@ -24,8 +24,14 @@
   display: none;
 }
 
-.measurements__bridge path {
-  fill: rgb(125 109 92 / 0.9);
+.measurements__bridge-photo {
+  opacity: 0.88;
+}
+
+.measurements__bridge-tint {
+  fill: rgb(196 182 168 / 0.28);
+  stroke: rgb(255 248 240 / 0.22);
+  stroke-width: 1.25;
 }
 
 .measurements__shell {
