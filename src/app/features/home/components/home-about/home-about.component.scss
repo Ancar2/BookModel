@@ -166,34 +166,7 @@
   transform: translateX(0) scale(1);
 }
 
-@media (width <= 1180px) {
-  .about__shell {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2.2rem;
-  }
 
-  .about__copy {
-    max-width: 100%;
-  }
-
-  .about__lead,
-  .about__paragraph,
-  .about__quote {
-    max-width: 100%;
-  }
-
-  .about__media {
-    justify-content: stretch;
-  }
-
-  .about__media-frame {
-    width: 100%;
-  }
-
-  .about__media-frame {
-    min-height: clamp(24rem, 72vw, 36rem);
-  }
-}
 
 @media (1181px <= width <= 1365px) {
   .about__copy {

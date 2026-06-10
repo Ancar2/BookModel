@@ -192,6 +192,12 @@
   }
 }
 
+@media (600px <= width <= 899px) {
+  .measurements__shell {
+    padding-top: 3.1rem;
+  }
+}
+
 @media (width <= 599px) {
   .measurements {
     margin-top: -1.5rem;
