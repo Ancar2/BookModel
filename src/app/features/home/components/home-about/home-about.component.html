@@ -1,8 +1,16 @@
-<section class="about" aria-labelledby="home-about-title">
+<section
+  #aboutSection
+  class="about"
+  [class.about--visible]="isVisible()"
+  aria-labelledby="home-about-title"
+>
   <div class="about__shell">
-    <article class="about__copy">
+    <header class="about__header">
       <p class="about__eyebrow">{{ content().eyebrow }}</p>
       <h2 id="home-about-title" class="about__title">{{ content().title }}</h2>
+    </header>
+
+    <article class="about__copy">
       <p class="about__lead">{{ content().lead }}</p>
 
       <div class="about__body">

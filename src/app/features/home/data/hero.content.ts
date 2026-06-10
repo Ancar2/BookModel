@@ -11,7 +11,7 @@ export const HERO_CONTENT: HomeHeroContent = {
   secondaryCtaLabel: 'Solicitar book',
   secondaryCtaLink: '/auth/login',
   photoCard: {
-    src: '/photos/portada2.jpg'
+    src: '/photos/cardHero.jpg'
   },
   videoCard: {
     src: '/videos/demo-all.MOV',

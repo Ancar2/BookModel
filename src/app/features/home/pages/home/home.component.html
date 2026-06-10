@@ -3,5 +3,10 @@
   <app-home-navbar />
   <app-home-hero [content]="heroContent" />
   <app-home-measurements [items]="measurements" />
-  <app-home-about [content]="aboutContent" />
+
+  @defer (on viewport) {
+    <app-home-about [content]="aboutContent" />
+  } @placeholder {
+    <div class="home-page__defer-anchor" aria-hidden="true"></div>
+  }
 </main>
