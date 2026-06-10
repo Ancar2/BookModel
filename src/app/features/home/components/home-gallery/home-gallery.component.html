@@ -1,22 +1,39 @@
-<section class="gallery" aria-labelledby="home-gallery-title">
+<section
+  #gallerySection
+  class="gallery"
+  [class.gallery--visible]="isVisible()"
+  aria-labelledby="home-gallery-title"
+>
   <div class="gallery__shell">
     <header class="gallery__header">
       <p class="gallery__eyebrow">{{ content().eyebrow }}</p>
       <h2 id="home-gallery-title" class="gallery__title">{{ content().title }}</h2>
     </header>
 
-    <div class="gallery__tabs" role="tablist" aria-label="Categorias de galeria">
-      @for (category of content().categories; track category.slug; let index = $index) {
-        <button
-          type="button"
-          class="gallery__tab"
-          [class.gallery__tab--active]="index === activeCategoryIndex()"
-          [attr.aria-selected]="index === activeCategoryIndex()"
-          (click)="selectCategory(index)"
-        >
-          {{ category.label }}
-        </button>
-      }
+    <div class="gallery__tabs-shell">
+      <p class="gallery__tabs-label">Selecciona una galeria</p>
+      <div class="gallery__tabs" role="tablist" aria-label="Selector de galerias editoriales">
+        @for (category of content().categories; track category.slug; let index = $index) {
+          <button
+            type="button"
+            class="gallery__tab"
+            [class.gallery__tab--active]="index === activeCategoryIndex()"
+            [attr.aria-selected]="index === activeCategoryIndex()"
+            (click)="selectCategory(index)"
+          >
+            <span class="gallery__tab-copy">
+              <span class="gallery__tab-index">Serie {{ index + 1 < 10 ? '0' + (index + 1) : index + 1 }}</span>
+              <span class="gallery__tab-name">{{ category.label }}</span>
+              <span class="gallery__tab-hint">{{ index === activeCategoryIndex() ? 'Galeria activa' : 'Abrir galeria' }}</span>
+            </span>
+            <img
+              class="gallery__tab-icon"
+              [src]="'/iconos/galeria' + (index + 1) + '.png'"
+              [alt]="'Icono de ' + category.label"
+            />
+          </button>
+        }
+      </div>
     </div>
 
     <section
@@ -24,12 +41,6 @@
       [class.gallery__stage--inverted]="activeCategory().inverted"
       [attr.aria-label]="activeCategory().label"
     >
-      <div class="gallery__copy">
-        <p class="gallery__stage-eyebrow">{{ activeCategory().eyebrow }}</p>
-        <h3 class="gallery__stage-title">{{ activeCategory().title }}</h3>
-        <p class="gallery__stage-description">{{ activeCategory().description }}</p>
-      </div>
-
       <div class="gallery__artboard">
         <svg
           class="gallery__glass gallery__glass--normal"
@@ -53,12 +64,24 @@
           />
         </svg>
 
-        <figure class="gallery__feature">
+        <p class="gallery__stage-eyebrow">{{ activeCategory().eyebrow }}</p>
+
+        <figure
+          #galleryFeature
+          class="gallery__feature"
+          [class.gallery__feature--highlighted]="featureHighlighted()"
+          (click)="openViewer()"
+        >
           <img
             class="gallery__feature-image"
             [src]="activeImage().src"
             [alt]="activeImage().alt"
           />
+
+          <figcaption class="gallery__feature-copy">
+            <h3 class="gallery__stage-title">{{ activeCategory().title }}</h3>
+            <p class="gallery__stage-description">{{ activeCategory().description }}</p>
+          </figcaption>
         </figure>
 
         <div class="gallery__thumbs" role="list" aria-label="Miniaturas de la categoria">
@@ -69,11 +92,41 @@
               [class.gallery__thumb--active]="index === activeImageIndex()"
               (click)="selectImage(index)"
             >
-              <img class="gallery__thumb-image" [src]="image.src" [alt]="image.alt" />
+              <span class="gallery__thumb-card">
+                <span class="gallery__thumb-face gallery__thumb-face--front">
+                  <img class="gallery__thumb-image" [src]="image.src" [alt]="image.alt" />
+                </span>
+
+                <span class="gallery__thumb-face gallery__thumb-face--back" aria-hidden="true">
+                  <img class="gallery__thumb-image gallery__thumb-image--mirrored" [src]="image.src" alt="" />
+                  <span class="gallery__thumb-overlay"></span>
+                  <span class="gallery__thumb-meta">
+                    <span class="gallery__thumb-status">{{ index === activeImageIndex() ? 'Seleccionada' : 'Ver' }}</span>
+                    <span class="gallery__thumb-action">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 5C6.5 5 2.08 8.44 1 12c1.08 3.56 5.5 7 11 7s9.92-3.44 11-7c-1.08-3.56-5.5-7-11-7Zm0 11.2A4.2 4.2 0 1 1 12 7.8a4.2 4.2 0 0 1 0 8.4Zm0-1.8a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z"/>
+                      </svg>
+                      <span>{{ index === activeImageIndex() ? 'En curso' : 'Ver' }}</span>
+                    </span>
+                  </span>
+                </span>
+              </span>
             </button>
           }
         </div>
       </div>
     </section>
   </div>
+
+  @if (isViewerOpen()) {
+    <div class="gallery__viewer" role="dialog" aria-modal="true" [attr.aria-label]="activeImage().alt">
+      <button type="button" class="gallery__viewer-backdrop" aria-label="Cerrar visor" (click)="closeViewer()"></button>
+      <div class="gallery__viewer-panel">
+        <button type="button" class="gallery__viewer-close" aria-label="Cerrar imagen" (click)="closeViewer()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <img class="gallery__viewer-image" [src]="activeImage().src" [alt]="activeImage().alt" />
+      </div>
+    </div>
+  }
 </section>
