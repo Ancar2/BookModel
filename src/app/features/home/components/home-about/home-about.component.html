@@ -17,20 +17,13 @@
     </article>
 
     <div class="about__media">
-      <div class="about__panel">
-        <div class="about__panel-head">
-          <p class="about__panel-eyebrow">{{ content().media.eyebrow }}</p>
-          <p class="about__panel-caption">{{ content().media.caption }}</p>
-        </div>
-
-        <div class="about__video-frame">
-          <img
-            class="about__video"
-            [attr.aria-label]="content().media.ariaLabel"
-            [src]="content().media.src"
-            alt=""
-          />
-        </div>
+      <div class="about__media-frame">
+        <img
+          class="about__video"
+          [attr.aria-label]="content().media.ariaLabel"
+          [src]="content().media.src"
+          alt=""
+        />
       </div>
     </div>
   </div>

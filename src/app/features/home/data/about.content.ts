@@ -12,8 +12,6 @@ export const HOME_ABOUT_CONTENT: HomeAboutContent = {
   quote: 'Una presencia elegante y fresca, pensada para marcas que cuidan cada detalle visual.',
   media: {
     src: '/iconos/cilueta.gif',
-    ariaLabel: 'Gif de la silueta de Mafe Ayala caminando en pasarela',
-    eyebrow: 'Runway Motion',
-    caption: 'Cilueta en movimiento'
+    ariaLabel: 'Gif de la silueta de Mafe Ayala caminando en pasarela'
   }
 };

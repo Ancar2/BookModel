@@ -33,8 +33,7 @@
   max-width: 33rem;
 }
 
-.about__eyebrow,
-.about__panel-eyebrow {
+.about__eyebrow {
   margin: 0;
   color: rgb(101 78 63 / 0.78);
   font-size: 0.78rem;
@@ -92,68 +91,11 @@
   justify-content: flex-end;
 }
 
-.about__panel {
-  position: relative;
+.about__media-frame {
   width: min(100%, 36rem);
-  padding: 1rem;
-  border: 1px solid rgb(255 250 244 / 0.75);
-  border-radius: 2rem;
-  background:
-    linear-gradient(180deg, rgb(255 249 241 / 0.74), rgb(233 221 210 / 0.42)),
-    rgb(173 145 123 / 0.12);
-  box-shadow:
-    0 24px 56px rgb(59 41 31 / 0.12),
-    inset 0 1px 0 rgb(255 255 255 / 0.55);
-  backdrop-filter: blur(18px);
-}
-
-.about__panel::before {
-  position: absolute;
-  inset: auto 1.25rem 1.25rem auto;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgb(203 173 146 / 0.2), transparent 68%);
-  pointer-events: none;
-  content: '';
-}
-
-.about__panel-head {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.9rem;
-  padding-inline: 0.28rem;
-}
-
-.about__panel-caption {
-  margin: 0;
-  color: rgb(81 60 49 / 0.82);
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.about__video-frame {
   position: relative;
   overflow: hidden;
   min-height: clamp(28rem, 58vw, 43rem);
-  border-radius: 1.55rem;
-  background:
-    linear-gradient(180deg, rgb(28 21 18 / 0.86), rgb(14 10 9 / 0.96));
-  box-shadow: inset 0 0 0 1px rgb(255 248 240 / 0.08);
-}
-
-.about__video-frame::after {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgb(255 255 255 / 0.06), transparent 18%),
-    linear-gradient(180deg, rgb(255 246 236 / 0.05), transparent 26%, rgb(8 6 6 / 0.12));
-  pointer-events: none;
-  content: '';
 }
 
 .about__video {
@@ -185,11 +127,11 @@
     justify-content: stretch;
   }
 
-  .about__panel {
+  .about__media-frame {
     width: 100%;
   }
 
-  .about__video-frame {
+  .about__media-frame {
     min-height: clamp(24rem, 72vw, 36rem);
   }
 }
@@ -216,21 +158,8 @@
     line-height: 1.66;
   }
 
-  .about__panel {
-    padding: 0.82rem;
-    border-radius: 1.4rem;
-  }
-
-  .about__panel-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.32rem;
-    margin-bottom: 0.7rem;
-  }
-
-  .about__video-frame {
+  .about__media-frame {
     min-height: clamp(22rem, 86vw, 32rem);
-    border-radius: 1.15rem;
   }
 }
 
@@ -243,8 +172,7 @@
     gap: 0.95rem;
   }
 
-  .about__eyebrow,
-  .about__panel-eyebrow {
+  .about__eyebrow {
     font-size: 0.66rem;
     letter-spacing: 0.26em;
   }
@@ -264,17 +192,7 @@
     font-size: 1.18rem;
   }
 
-  .about__panel {
-    padding: 0.72rem;
-    border-radius: 1.15rem;
-  }
-
-  .about__panel-caption {
-    font-size: 0.72rem;
-  }
-
-  .about__video-frame {
+  .about__media-frame {
     min-height: clamp(19rem, 94vw, 28rem);
-    border-radius: 0.95rem;
   }
 }

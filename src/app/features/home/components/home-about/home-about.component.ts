@@ -3,8 +3,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export interface HomeAboutMediaContent {
   readonly src: string;
   readonly ariaLabel: string;
-  readonly caption: string;
-  readonly eyebrow: string;
 }
 
 export interface HomeAboutContent {
