@@ -9,4 +9,10 @@
   } @placeholder {
     <div class="home-page__defer-anchor" aria-hidden="true"></div>
   }
+
+  @defer (on viewport) {
+    <app-home-gallery [content]="galleryContent" />
+  } @placeholder {
+    <div class="home-page__defer-anchor" aria-hidden="true"></div>
+  }
 </main>

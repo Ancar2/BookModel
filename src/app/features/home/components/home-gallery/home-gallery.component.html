@@ -1,0 +1,79 @@
+<section class="gallery" aria-labelledby="home-gallery-title">
+  <div class="gallery__shell">
+    <header class="gallery__header">
+      <p class="gallery__eyebrow">{{ content().eyebrow }}</p>
+      <h2 id="home-gallery-title" class="gallery__title">{{ content().title }}</h2>
+    </header>
+
+    <div class="gallery__tabs" role="tablist" aria-label="Categorias de galeria">
+      @for (category of content().categories; track category.slug; let index = $index) {
+        <button
+          type="button"
+          class="gallery__tab"
+          [class.gallery__tab--active]="index === activeCategoryIndex()"
+          [attr.aria-selected]="index === activeCategoryIndex()"
+          (click)="selectCategory(index)"
+        >
+          {{ category.label }}
+        </button>
+      }
+    </div>
+
+    <section
+      class="gallery__stage"
+      [class.gallery__stage--inverted]="activeCategory().inverted"
+      [attr.aria-label]="activeCategory().label"
+    >
+      <div class="gallery__copy">
+        <p class="gallery__stage-eyebrow">{{ activeCategory().eyebrow }}</p>
+        <h3 class="gallery__stage-title">{{ activeCategory().title }}</h3>
+        <p class="gallery__stage-description">{{ activeCategory().description }}</p>
+      </div>
+
+      <div class="gallery__artboard">
+        <svg
+          class="gallery__glass gallery__glass--normal"
+          viewBox="95 74.01 1397 970.4300000000001"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M115 84.01 L739 84.01 C739 84.01, 749 84.01, 749 94.01 L749 109.45 C749 109.45, 749 119.45, 759 119.45 L921.775 119.45 C921.775 119.45, 922 119.45, 922 119.67500000000001 L922 119.67500000000001 C922 119.67500000000001, 922 119.9, 922.225 119.9 L1472 119.9 C1472 119.9, 1482 119.9, 1482 129.9 L1482 987.0999999999999 C1482 987.0999999999999, 1482 997.0999999999999, 1472 997.0999999999999 L1301 997.0999999999999 C1301 997.0999999999999, 1300 997.0999999999999, 1300 998.0999999999999 L1300 998.0999999999999 C1300 998.0999999999999, 1300 999.0999999999999, 1299 999.0999999999999 L921.2250000000001 999.0999999999999 C921.2250000000001 999.0999999999999, 921 999.0999999999999, 921 999.325 L921 999.325 C921 999.325, 921 999.5500000000001, 920.7749999999999 999.5500000000001 L753.61 999.5500000000001 C753.61 999.5500000000001, 743.61 999.5500000000001, 743.61 1009.5500000000001 L743.61 1024.44 C743.61 1024.44, 743.61 1034.44, 733.61 1034.44 L120 1034.44 C120 1034.44, 110 1034.44, 110 1024.44 L110 967.56 C110 967.56, 110 957.56, 120 957.56 L711 957.56 C711 957.56, 721 957.56, 721 947.56 L721 800.95 C721 800.95, 721 800.45, 721.5 800.45 L721.5 800.45 C721.5 800.45, 722 800.45, 722 799.95 L722 169.99 C722 169.99, 722 159.99, 712 159.99 L115 159.99 C115 159.99, 105 159.99, 105 149.99 L105 94.01 C105 94.01, 105 84.01, 115 84.01"
+          />
+        </svg>
+
+        <svg
+          class="gallery__glass gallery__glass--inverted"
+          viewBox="95 74.01 1397 970.4300000000001"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M115 84.01 L739 84.01 C739 84.01, 749 84.01, 749 94.01 L749 109.45 C749 109.45, 749 119.45, 759 119.45 L921.775 119.45 C921.775 119.45, 922 119.45, 922 119.67500000000001 L922 119.67500000000001 C922 119.67500000000001, 922 119.9, 922.225 119.9 L1472 119.9 C1472 119.9, 1482 119.9, 1482 129.9 L1482 987.0999999999999 C1482 987.0999999999999, 1482 997.0999999999999, 1472 997.0999999999999 L1301 997.0999999999999 C1301 997.0999999999999, 1300 997.0999999999999, 1300 998.0999999999999 L1300 998.0999999999999 C1300 998.0999999999999, 1300 999.0999999999999, 1299 999.0999999999999 L921.2250000000001 999.0999999999999 C921.2250000000001 999.0999999999999, 921 999.0999999999999, 921 999.325 L921 999.325 C921 999.325, 921 999.5500000000001, 920.7749999999999 999.5500000000001 L753.61 999.5500000000001 C753.61 999.5500000000001, 743.61 999.5500000000001, 743.61 1009.5500000000001 L743.61 1024.44 C743.61 1024.44, 743.61 1034.44, 733.61 1034.44 L120 1034.44 C120 1034.44, 110 1034.44, 110 1024.44 L110 967.56 C110 967.56, 110 957.56, 120 957.56 L711 957.56 C711 957.56, 721 957.56, 721 947.56 L721 800.95 C721 800.95, 721 800.45, 721.5 800.45 L721.5 800.45 C721.5 800.45, 722 800.45, 722 799.95 L722 169.99 C722 169.99, 722 159.99, 712 159.99 L115 159.99 C115 159.99, 105 159.99, 105 149.99 L105 94.01 C105 94.01, 105 84.01, 115 84.01"
+          />
+        </svg>
+
+        <figure class="gallery__feature">
+          <img
+            class="gallery__feature-image"
+            [src]="activeImage().src"
+            [alt]="activeImage().alt"
+          />
+        </figure>
+
+        <div class="gallery__thumbs" role="list" aria-label="Miniaturas de la categoria">
+          @for (image of activeCategory().images; track image.src; let index = $index) {
+            <button
+              type="button"
+              class="gallery__thumb"
+              [class.gallery__thumb--active]="index === activeImageIndex()"
+              (click)="selectImage(index)"
+            >
+              <img class="gallery__thumb-image" [src]="image.src" [alt]="image.alt" />
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
