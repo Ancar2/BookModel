@@ -79,3 +79,13 @@ img {
     --home-navbar-height: 4rem;
   }
 }
+
+@media print {
+  .navbar {
+    display: none !important;
+  }
+
+  .home-page {
+    padding-top: 0 !important;
+  }
+}

@@ -1,0 +1,37 @@
+<section class="about" aria-labelledby="home-about-title">
+  <div class="about__shell">
+    <article class="about__copy">
+      <p class="about__eyebrow">{{ content().eyebrow }}</p>
+      <h2 id="home-about-title" class="about__title">{{ content().title }}</h2>
+      <p class="about__lead">{{ content().lead }}</p>
+
+      <div class="about__body">
+        @for (paragraph of content().paragraphs; track paragraph) {
+          <p class="about__paragraph">{{ paragraph }}</p>
+        }
+      </div>
+
+      <blockquote class="about__quote">
+        {{ content().quote }}
+      </blockquote>
+    </article>
+
+    <div class="about__media">
+      <div class="about__panel">
+        <div class="about__panel-head">
+          <p class="about__panel-eyebrow">{{ content().media.eyebrow }}</p>
+          <p class="about__panel-caption">{{ content().media.caption }}</p>
+        </div>
+
+        <div class="about__video-frame">
+          <img
+            class="about__video"
+            [attr.aria-label]="content().media.ariaLabel"
+            [src]="content().media.src"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
