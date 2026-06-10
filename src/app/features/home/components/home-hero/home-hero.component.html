@@ -39,14 +39,14 @@
       <img class="hero__photo-card-image" [src]="content().photoCard.src" alt="" />
     </aside>
 
-    <aside class="hero__video-card" aria-label="Preview de video">
+    <aside class="hero__video-card" aria-label="Preview de video" (click)="openVideoViewer()">
       <div class="hero__video-frame">
         <button
           type="button"
           class="hero__video-mute"
           [attr.aria-pressed]="isVideoMuted()"
           [attr.aria-label]="isVideoMuted() ? 'Activar sonido' : 'Silenciar video'"
-          (click)="toggleVideoMuted()"
+          (click)="toggleVideoMuted($event)"
         >
           <span class="hero__video-mute-icon" aria-hidden="true">
             <span class="hero__video-mute-speaker"></span>
@@ -81,4 +81,43 @@
       </div>
     </aside>
   </div>
+
+  @if (isVideoViewerOpen()) {
+    <div class="hero__video-viewer" role="dialog" aria-modal="true" [attr.aria-label]="content().videoCard.ariaLabel">
+      <button
+        type="button"
+        class="hero__video-viewer-backdrop"
+        aria-label="Cerrar video"
+        (click)="closeVideoViewer()"
+      ></button>
+
+      <div class="hero__video-viewer-panel">
+        <button
+          type="button"
+          class="hero__video-viewer-close"
+          aria-label="Cerrar video"
+          (click)="closeVideoViewer()"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+
+        <video
+          #fullscreenVideo
+          class="hero__video-viewer-media"
+          [src]="content().videoCard.src"
+          autoplay
+          muted
+          defaultMuted
+          loop
+          controls
+          playsinline
+          preload="metadata"
+          disableremoteplayback
+          disablepictureinpicture
+          (loadedmetadata)="ensureVideoAudioState()"
+          [attr.aria-label]="content().videoCard.ariaLabel"
+        ></video>
+      </div>
+    </div>
+  }
 </section>

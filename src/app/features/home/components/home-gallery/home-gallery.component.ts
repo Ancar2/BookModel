@@ -56,6 +56,11 @@ export class HomeGalleryComponent implements AfterViewInit, OnDestroy {
 
   private visibilityObserver?: IntersectionObserver;
   private featureHighlightTimeout?: ReturnType<typeof setTimeout>;
+  private viewerTouchStartX?: number;
+  private viewerTouchStartY?: number;
+  private viewerSwipeTriggered = false;
+  private viewerPointerId?: number;
+  private previousBodyOverflow = '';
 
   protected readonly activeCategory = computed(() => {
     const categories = this.content().categories;
@@ -97,16 +102,33 @@ export class HomeGalleryComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.visibilityObserver?.disconnect();
+    this.unlockBodyScroll();
 
     if (this.featureHighlightTimeout) {
       clearTimeout(this.featureHighlightTimeout);
     }
   }
 
-  @HostListener('document:keydown.escape')
-  protected handleEscapeKey(): void {
-    if (this.isViewerOpen()) {
+  @HostListener('document:keydown', ['$event'])
+  protected handleViewerKeydown(event: KeyboardEvent): void {
+    if (!this.isViewerOpen()) {
+      return;
+    }
+
+    if (event.key === 'Escape') {
       this.closeViewer();
+      return;
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.goToNextImage();
+      return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.goToPreviousImage();
     }
   }
 
@@ -118,7 +140,7 @@ export class HomeGalleryComponent implements AfterViewInit, OnDestroy {
     this.activeCategoryIndex.set(index);
     this.activeImageIndex.set(0);
     this.featureHighlighted.set(false);
-    this.isViewerOpen.set(false);
+    this.closeViewer();
 
     if (this.featureHighlightTimeout) {
       clearTimeout(this.featureHighlightTimeout);
@@ -134,10 +156,163 @@ export class HomeGalleryComponent implements AfterViewInit, OnDestroy {
 
   protected openViewer(): void {
     this.isViewerOpen.set(true);
+    this.lockBodyScroll();
   }
 
   protected closeViewer(): void {
     this.isViewerOpen.set(false);
+    this.unlockBodyScroll();
+  }
+
+  protected goToNextImage(): void {
+    const images = this.activeCategory().images;
+
+    if (!images.length) {
+      return;
+    }
+
+    this.activeImageIndex.update(index => (index + 1) % images.length);
+  }
+
+  protected goToPreviousImage(): void {
+    const images = this.activeCategory().images;
+
+    if (!images.length) {
+      return;
+    }
+
+    this.activeImageIndex.update(index => (index - 1 + images.length) % images.length);
+  }
+
+  protected onViewerTouchStart(event: TouchEvent): void {
+    const touch = event.touches[0];
+
+    if (!touch) {
+      return;
+    }
+
+    this.viewerTouchStartX = touch.clientX;
+    this.viewerTouchStartY = touch.clientY;
+    this.viewerSwipeTriggered = false;
+  }
+
+  protected onViewerTouchMove(event: TouchEvent): void {
+    if (this.viewerTouchStartX === undefined || this.viewerTouchStartY === undefined || this.viewerSwipeTriggered) {
+      return;
+    }
+
+    const touch = event.touches[0];
+
+    if (!touch) {
+      return;
+    }
+
+    const deltaX = touch.clientX - this.viewerTouchStartX;
+    const deltaY = touch.clientY - this.viewerTouchStartY;
+
+    if (Math.abs(deltaX) < 30 || Math.abs(deltaX) < Math.abs(deltaY)) {
+      return;
+    }
+
+    event.preventDefault();
+    this.viewerSwipeTriggered = true;
+
+    if (deltaX < 0) {
+      this.goToNextImage();
+    } else {
+      this.goToPreviousImage();
+    }
+
+    this.resetViewerTouchState();
+  }
+
+  protected onViewerTouchEnd(event: TouchEvent): void {
+    if (this.viewerTouchStartX === undefined || this.viewerTouchStartY === undefined) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+
+    if (!touch) {
+      this.resetViewerTouchState();
+      return;
+    }
+
+    const deltaX = touch.clientX - this.viewerTouchStartX;
+    const deltaY = touch.clientY - this.viewerTouchStartY;
+
+    this.resetViewerTouchState();
+
+    if (Math.abs(deltaX) < 28 || Math.abs(deltaX) < Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      this.goToNextImage();
+      return;
+    }
+
+    this.goToPreviousImage();
+  }
+
+  protected onViewerTouchCancel(): void {
+    this.resetViewerTouchState();
+  }
+
+  protected onViewerPointerDown(event: PointerEvent): void {
+    if (event.pointerType !== 'touch' && event.pointerType !== 'pen') {
+      return;
+    }
+
+    this.viewerPointerId = event.pointerId;
+    this.viewerTouchStartX = event.clientX;
+    this.viewerTouchStartY = event.clientY;
+    this.viewerSwipeTriggered = false;
+  }
+
+  protected onViewerPointerMove(event: PointerEvent): void {
+    if (
+      this.viewerPointerId !== event.pointerId ||
+      this.viewerTouchStartX === undefined ||
+      this.viewerTouchStartY === undefined ||
+      this.viewerSwipeTriggered
+    ) {
+      return;
+    }
+
+    const deltaX = event.clientX - this.viewerTouchStartX;
+    const deltaY = event.clientY - this.viewerTouchStartY;
+
+    if (Math.abs(deltaX) < 30 || Math.abs(deltaX) < Math.abs(deltaY)) {
+      return;
+    }
+
+    event.preventDefault();
+    this.viewerSwipeTriggered = true;
+
+    if (deltaX < 0) {
+      this.goToNextImage();
+    } else {
+      this.goToPreviousImage();
+    }
+
+    this.resetViewerTouchState();
+  }
+
+  protected onViewerPointerUp(event: PointerEvent): void {
+    if (this.viewerPointerId !== event.pointerId) {
+      return;
+    }
+
+    this.resetViewerTouchState();
+  }
+
+  protected onViewerPointerCancel(event: PointerEvent): void {
+    if (this.viewerPointerId !== event.pointerId) {
+      return;
+    }
+
+    this.resetViewerTouchState();
   }
 
   private triggerFeatureHighlight(): void {
@@ -176,5 +351,29 @@ export class HomeGalleryComponent implements AfterViewInit, OnDestroy {
         behavior: 'smooth'
       });
     });
+  }
+
+  private resetViewerTouchState(): void {
+    this.viewerTouchStartX = undefined;
+    this.viewerTouchStartY = undefined;
+    this.viewerSwipeTriggered = false;
+    this.viewerPointerId = undefined;
+  }
+
+  private lockBodyScroll(): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    this.previousBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+  }
+
+  private unlockBodyScroll(): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    document.body.style.overflow = this.previousBodyOverflow;
   }
 }

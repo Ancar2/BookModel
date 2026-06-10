@@ -122,10 +122,41 @@
     <div class="gallery__viewer" role="dialog" aria-modal="true" [attr.aria-label]="activeImage().alt">
       <button type="button" class="gallery__viewer-backdrop" aria-label="Cerrar visor" (click)="closeViewer()"></button>
       <div class="gallery__viewer-panel">
+        <button
+          type="button"
+          class="gallery__viewer-nav gallery__viewer-nav--prev"
+          aria-label="Foto anterior"
+          (click)="goToPreviousImage()"
+        >
+          <span aria-hidden="true">‹</span>
+        </button>
+
         <button type="button" class="gallery__viewer-close" aria-label="Cerrar imagen" (click)="closeViewer()">
           <span aria-hidden="true">×</span>
         </button>
-        <img class="gallery__viewer-image" [src]="activeImage().src" [alt]="activeImage().alt" />
+
+        <div
+          class="gallery__viewer-stage"
+          (pointerdown)="onViewerPointerDown($event)"
+          (pointermove)="onViewerPointerMove($event)"
+          (pointerup)="onViewerPointerUp($event)"
+          (pointercancel)="onViewerPointerCancel($event)"
+          (touchstart)="onViewerTouchStart($event)"
+          (touchmove)="onViewerTouchMove($event)"
+          (touchend)="onViewerTouchEnd($event)"
+          (touchcancel)="onViewerTouchCancel()"
+        >
+          <img class="gallery__viewer-image" [src]="activeImage().src" [alt]="activeImage().alt" draggable="false" />
+        </div>
+
+        <button
+          type="button"
+          class="gallery__viewer-nav gallery__viewer-nav--next"
+          aria-label="Foto siguiente"
+          (click)="goToNextImage()"
+        >
+          <span aria-hidden="true">›</span>
+        </button>
       </div>
     </div>
   }

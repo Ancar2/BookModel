@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  HostListener,
   OnDestroy,
   ViewChild,
   input,
@@ -58,8 +59,12 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
   @ViewChild('demoVideo')
   private readonly demoVideo?: ElementRef<HTMLVideoElement>;
 
+  @ViewChild('fullscreenVideo')
+  private readonly fullscreenVideo?: ElementRef<HTMLVideoElement>;
+
   readonly content = input.required<HomeHeroContent>();
   protected readonly isVideoMuted = signal(true);
+  protected readonly isVideoViewerOpen = signal(false);
 
   private heroVisible = false;
   private pageVisible = !document.hidden;
@@ -67,6 +72,7 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
   private introFinished = false;
   private userMuted = false;
   private intersectionObserver?: IntersectionObserver;
+  private previousBodyOverflow = '';
   private readonly introTimeout = window.setTimeout(() => {
     this.introFinished = true;
     this.updateVideoAudio();
@@ -98,15 +104,38 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
     document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     window.removeEventListener('focus', this.handleWindowFocus);
     window.removeEventListener('blur', this.handleWindowBlur);
+    this.unlockBodyScroll();
   }
 
   protected ensureVideoAudioState(): void {
     this.updateVideoAudio();
   }
 
-  protected toggleVideoMuted(): void {
+  protected toggleVideoMuted(event?: Event): void {
+    event?.stopPropagation();
     this.userMuted = !this.userMuted;
     this.updateVideoAudio();
+  }
+
+  protected openVideoViewer(): void {
+    this.isVideoViewerOpen.set(true);
+    this.lockBodyScroll();
+    queueMicrotask(() => this.updateVideoAudio());
+  }
+
+  protected closeVideoViewer(): void {
+    this.isVideoViewerOpen.set(false);
+    this.unlockBodyScroll();
+    this.updateVideoAudio();
+  }
+
+  @HostListener('document:keydown.escape')
+  protected handleEscapeKey(): void {
+    if (!this.isVideoViewerOpen()) {
+      return;
+    }
+
+    this.closeVideoViewer();
   }
 
   private setupHeroVisibilityObserver(): void {
@@ -130,12 +159,6 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateVideoAudio(): void {
-    const video = this.demoVideo?.nativeElement;
-
-    if (!video) {
-      return;
-    }
-
     const shouldMute =
       this.userMuted ||
       !this.introFinished ||
@@ -143,11 +166,36 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
       !this.pageVisible ||
       !this.windowFocused;
 
+    this.isVideoMuted.set(shouldMute);
+    this.applyVideoState(this.demoVideo?.nativeElement, shouldMute || this.isVideoViewerOpen());
+    this.applyVideoState(this.fullscreenVideo?.nativeElement, shouldMute);
+  }
+
+  private applyVideoState(video: HTMLVideoElement | undefined, shouldMute: boolean): void {
+    if (!video) {
+      return;
+    }
+
     video.defaultMuted = shouldMute;
     video.muted = shouldMute;
     video.volume = shouldMute ? 0 : 1;
-    this.isVideoMuted.set(shouldMute);
-
     void video.play().catch(() => undefined);
+  }
+
+  private lockBodyScroll(): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    this.previousBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+  }
+
+  private unlockBodyScroll(): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    document.body.style.overflow = this.previousBodyOverflow;
   }
 }
