@@ -30,6 +30,7 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 * {

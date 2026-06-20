@@ -9,7 +9,6 @@ import {
   input,
   signal
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 export interface HomeHeroContent {
   readonly eyebrow: string;
@@ -44,15 +43,11 @@ export interface HomeHeroPhotoCardContent {
 @Component({
   selector: 'app-home-hero',
   standalone: true,
-  imports: [RouterLink],
   templateUrl: './home-hero.component.html',
   styleUrl: './home-hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeHeroComponent implements AfterViewInit, OnDestroy {
-  private readonly introDurationMs = 3000;
-  private readonly introExitDurationMs = 320;
-
   @ViewChild('heroSection')
   private readonly heroSection?: ElementRef<HTMLElement>;
 
@@ -69,14 +64,10 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
   private heroVisible = false;
   private pageVisible = !document.hidden;
   private windowFocused = document.hasFocus();
-  private introFinished = false;
   private userMuted = false;
+  private userInteracted = false;
   private intersectionObserver?: IntersectionObserver;
   private previousBodyOverflow = '';
-  private readonly introTimeout = window.setTimeout(() => {
-    this.introFinished = true;
-    this.updateVideoAudio();
-  }, this.introDurationMs + this.introExitDurationMs);
   private readonly handleVisibilityChange = (): void => {
     this.pageVisible = !document.hidden;
     this.updateVideoAudio();
@@ -89,21 +80,29 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
     this.windowFocused = false;
     this.updateVideoAudio();
   };
+  private readonly handleFirstUserGesture = (): void => {
+    this.userInteracted = true;
+    this.userMuted = false;
+    this.updateVideoAudio();
+    this.tryResumePlayback();
+    this.removeUserGestureListeners();
+  };
 
   ngAfterViewInit(): void {
     this.setupHeroVisibilityObserver();
     document.addEventListener('visibilitychange', this.handleVisibilityChange);
     window.addEventListener('focus', this.handleWindowFocus);
     window.addEventListener('blur', this.handleWindowBlur);
+    this.addUserGestureListeners();
     this.updateVideoAudio();
   }
 
   ngOnDestroy(): void {
     this.intersectionObserver?.disconnect();
-    window.clearTimeout(this.introTimeout);
     document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     window.removeEventListener('focus', this.handleWindowFocus);
     window.removeEventListener('blur', this.handleWindowBlur);
+    this.removeUserGestureListeners();
     this.unlockBodyScroll();
   }
 
@@ -159,19 +158,18 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateVideoAudio(): void {
-    const shouldMute =
-      this.userMuted ||
-      !this.introFinished ||
-      !this.heroVisible ||
-      !this.pageVisible ||
-      !this.windowFocused;
+    const shouldMute = this.userMuted || !this.heroVisible || !this.pageVisible || !this.windowFocused;
 
     this.isVideoMuted.set(shouldMute);
-    this.applyVideoState(this.demoVideo?.nativeElement, shouldMute || this.isVideoViewerOpen());
-    this.applyVideoState(this.fullscreenVideo?.nativeElement, shouldMute);
+    this.applyVideoState(this.demoVideo?.nativeElement, shouldMute || this.isVideoViewerOpen(), true);
+    this.applyVideoState(this.fullscreenVideo?.nativeElement, shouldMute, false);
   }
 
-  private applyVideoState(video: HTMLVideoElement | undefined, shouldMute: boolean): void {
+  private applyVideoState(
+    video: HTMLVideoElement | undefined,
+    shouldMute: boolean,
+    allowMutedFallback: boolean
+  ): void {
     if (!video) {
       return;
     }
@@ -179,7 +177,39 @@ export class HomeHeroComponent implements AfterViewInit, OnDestroy {
     video.defaultMuted = shouldMute;
     video.muted = shouldMute;
     video.volume = shouldMute ? 0 : 1;
-    void video.play().catch(() => undefined);
+
+    void video.play().catch(() => {
+      if (!shouldMute && allowMutedFallback && !this.userInteracted) {
+        video.defaultMuted = true;
+        video.muted = true;
+        video.volume = 0;
+        this.isVideoMuted.set(true);
+        return video.play().catch(() => undefined);
+      }
+
+      return undefined;
+    });
+  }
+
+  private addUserGestureListeners(): void {
+    document.addEventListener('pointerdown', this.handleFirstUserGesture, { passive: true });
+    document.addEventListener('touchstart', this.handleFirstUserGesture, { passive: true });
+    window.addEventListener('scroll', this.handleFirstUserGesture, { passive: true });
+    window.addEventListener('wheel', this.handleFirstUserGesture, { passive: true });
+    document.addEventListener('keydown', this.handleFirstUserGesture);
+  }
+
+  private removeUserGestureListeners(): void {
+    document.removeEventListener('pointerdown', this.handleFirstUserGesture);
+    document.removeEventListener('touchstart', this.handleFirstUserGesture);
+    window.removeEventListener('scroll', this.handleFirstUserGesture);
+    window.removeEventListener('wheel', this.handleFirstUserGesture);
+    document.removeEventListener('keydown', this.handleFirstUserGesture);
+  }
+
+  private tryResumePlayback(): void {
+    void this.demoVideo?.nativeElement.play().catch(() => undefined);
+    void this.fullscreenVideo?.nativeElement.play().catch(() => undefined);
   }
 
   private lockBodyScroll(): void {

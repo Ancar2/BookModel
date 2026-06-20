@@ -1,0 +1,37 @@
+<section
+  id="contacto"
+  #contactSection
+  class="contact"
+  [class.contact--visible]="isVisible()"
+  aria-labelledby="home-contact-title"
+>
+  <div class="contact__shell">
+    <span class="contact__back-word" aria-hidden="true">BOOK</span>
+
+    <div class="contact__copy">
+      <p class="contact__eyebrow">{{ content().eyebrow }}</p>
+
+      <h2 id="home-contact-title" class="contact__title">
+        <span>{{ content().title }}</span>
+        <span class="contact__title-highlight">{{ content().highlight }}</span>
+      </h2>
+
+      <span class="contact__rule" aria-hidden="true"></span>
+
+      <p class="contact__description">{{ content().description }}</p>
+    </div>
+
+    <aside class="contact__card">
+      <p class="contact__card-label">WhatsApp Directo</p>
+      <a class="contact__phone" [href]="content().whatsappHref" target="_blank" rel="noreferrer">
+        {{ content().phoneLabel }}
+      </a>
+      <p class="contact__card-copy">
+        Agenda bookings, colaboraciones y piezas editoriales con una respuesta directa y profesional.
+      </p>
+      <a class="contact__button" [href]="content().whatsappHref" target="_blank" rel="noreferrer">
+        {{ content().ctaLabel }}
+      </a>
+    </aside>
+  </div>
+</section>

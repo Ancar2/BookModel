@@ -1,0 +1,54 @@
+<footer
+  #footerSection
+  class="footer"
+  [class.footer--visible]="isVisible()"
+  aria-labelledby="home-footer-title"
+>
+  <div class="footer__shell">
+    <span class="footer__back-word" aria-hidden="true">MA</span>
+
+    <div class="footer__main">
+      <div class="footer__copy">
+        <img class="footer__logo" [src]="content().brandLogoSrc" alt="Logo de Mafe Ayala" />
+
+        <p class="footer__eyebrow">{{ content().eyebrow }}</p>
+
+        <h2 id="home-footer-title" class="footer__title">{{ content().title }}</h2>
+
+        <p class="footer__description">{{ content().description }}</p>
+
+        <div class="footer__actions">
+          <a class="footer__button footer__button--primary" [href]="content().ctaHref" target="_blank" rel="noreferrer">
+            {{ content().ctaLabel }}
+          </a>
+          <a class="footer__button footer__button--secondary" [href]="content().secondaryHref">
+            {{ content().secondaryLabel }}
+          </a>
+        </div>
+      </div>
+
+      <aside class="footer__visual" aria-hidden="true">
+        <div class="footer__silhouette-card">
+          <img class="footer__silhouette" [src]="content().silhouetteSrc" alt="" />
+        </div>
+      </aside>
+    </div>
+
+    <div class="footer__meta">
+      <div class="footer__meta-primary">
+        <div class="footer__links">
+          @for (link of content().links; track link.label) {
+            <a class="footer__link" [href]="link.href" target="_blank" rel="noreferrer">
+              <img class="footer__link-icon" [src]="link.iconSrc" [alt]="link.label" />
+            </a>
+          }
+        </div>
+
+        <a class="footer__tech" [href]="content().techHref" target="_blank" rel="noreferrer">
+          <span class="footer__tech-label">{{ content().techLabel }}</span>
+          <img class="footer__tech-logo" [src]="content().techLogoSrc" alt="CardenasLABS" />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

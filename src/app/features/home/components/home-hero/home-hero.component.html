@@ -1,4 +1,4 @@
-<section #heroSection class="hero" aria-labelledby="home-hero-title">
+<section id="inicio" #heroSection class="hero" aria-labelledby="home-hero-title">
   <span class="hero__back-word" aria-hidden="true">MODEL</span>
 
   <div class="hero__content">
@@ -15,10 +15,15 @@
       <p class="hero__description">{{ content().description }}</p>
 
       <div class="hero__actions">
-        <a class="hero__button hero__button--primary" [routerLink]="content().primaryCtaLink">
+        <a class="hero__button hero__button--primary" [href]="content().primaryCtaLink">
           {{ content().primaryCtaLabel }}
         </a>
-        <a class="hero__button hero__button--secondary" [routerLink]="content().secondaryCtaLink">
+        <a
+          class="hero__button hero__button--secondary"
+          [href]="content().secondaryCtaLink"
+          target="_blank"
+          rel="noreferrer"
+        >
           {{ content().secondaryCtaLabel }}
         </a>
       </div>

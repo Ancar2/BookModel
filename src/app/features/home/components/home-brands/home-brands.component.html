@@ -1,0 +1,30 @@
+<section
+  #brandsSection
+  class="brands"
+  [class.brands--visible]="isVisible()"
+  aria-label="Marcas y colaboraciones"
+>
+  <div class="brands__shell">
+    <div class="brands__marquees" aria-label="Marcas y colaboraciones">
+      <div class="brands__lane">
+        <div class="brands__track brands__track--left">
+          @for (logo of topTrack(); track logo.key) {
+            <figure class="brands__card">
+              <img class="brands__logo" [src]="logo.src" [alt]="logo.alt" loading="lazy" />
+            </figure>
+          }
+        </div>
+      </div>
+
+      <div class="brands__lane brands__lane--offset">
+        <div class="brands__track brands__track--right">
+          @for (logo of bottomTrack(); track logo.key) {
+            <figure class="brands__card">
+              <img class="brands__logo" [src]="logo.src" [alt]="logo.alt" loading="lazy" />
+            </figure>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

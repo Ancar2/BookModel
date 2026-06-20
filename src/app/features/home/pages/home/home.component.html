@@ -1,17 +1,54 @@
 <main class="home-page">
   <app-home-intro />
   <app-home-navbar />
-  <app-home-hero [content]="heroContent" />
-  <app-home-measurements [items]="measurements" />
+  <div id="inicio">
+    <app-home-hero [content]="heroContent" />
+  </div>
+
+  <div id="book">
+    <app-home-measurements [items]="measurements" />
+  </div>
+
+  <div id="sobre-mi">
+    @defer (on viewport) {
+      <app-home-about [content]="aboutContent" />
+    } @placeholder {
+      <div class="home-page__defer-anchor" aria-hidden="true"></div>
+    }
+  </div>
+
+  <div id="galeria">
+    @defer (on viewport) {
+      <app-home-gallery [content]="galleryContent" />
+    } @placeholder {
+      <div class="home-page__defer-anchor" aria-hidden="true"></div>
+    }
+  </div>
 
   @defer (on viewport) {
-    <app-home-about [content]="aboutContent" />
+    <app-home-brands [content]="brandsContent" />
   } @placeholder {
     <div class="home-page__defer-anchor" aria-hidden="true"></div>
   }
 
+  <div id="reels">
+    @defer (on viewport) {
+      <app-home-reels [content]="reelsContent" />
+    } @placeholder {
+      <div class="home-page__defer-anchor" aria-hidden="true"></div>
+    }
+  </div>
+
+  <div id="contacto">
+    @defer (on viewport) {
+      <app-home-contact [content]="contactContent" />
+    } @placeholder {
+      <div class="home-page__defer-anchor" aria-hidden="true"></div>
+    }
+  </div>
+
   @defer (on viewport) {
-    <app-home-gallery [content]="galleryContent" />
+    <app-home-footer [content]="footerContent" />
   } @placeholder {
     <div class="home-page__defer-anchor" aria-hidden="true"></div>
   }

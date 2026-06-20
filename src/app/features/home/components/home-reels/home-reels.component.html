@@ -1,0 +1,157 @@
+<section
+  id="reels"
+  #reelsSection
+  class="reels"
+  [class.reels--visible]="isVisible()"
+  aria-labelledby="home-reels-title"
+>
+  <div class="reels__shell">
+    <header class="reels__header">
+      <p class="reels__eyebrow">{{ content().eyebrow }}</p>
+      <h2 id="home-reels-title" class="reels__title">{{ content().title }}</h2>
+      <p class="reels__description">{{ content().description }}</p>
+    </header>
+
+    <section class="reels__stage" aria-label="Seleccion de reels">
+      <div class="reels__artboard">
+        <svg
+          class="reels__glass"
+          viewBox="95 74.01 1397 970.4300000000001"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M115 84.01 L739 84.01 C739 84.01, 749 84.01, 749 94.01 L749 109.45 C749 109.45, 749 119.45, 759 119.45 L921.775 119.45 C921.775 119.45, 922 119.45, 922 119.67500000000001 L922 119.67500000000001 C922 119.67500000000001, 922 119.9, 922.225 119.9 L1472 119.9 C1472 119.9, 1482 119.9, 1482 129.9 L1482 987.0999999999999 C1482 987.0999999999999, 1482 997.0999999999999, 1472 997.0999999999999 L1301 997.0999999999999 C1301 997.0999999999999, 1300 997.0999999999999, 1300 998.0999999999999 L1300 998.0999999999999 C1300 998.0999999999999, 1300 999.0999999999999, 1299 999.0999999999999 L921.2250000000001 999.0999999999999 C921.2250000000001 999.0999999999999, 921 999.0999999999999, 921 999.325 L921 999.325 C921 999.325, 921 999.5500000000001, 920.7749999999999 999.5500000000001 L753.61 999.5500000000001 C753.61 999.5500000000001, 743.61 999.5500000000001, 743.61 1009.5500000000001 L743.61 1024.44 C743.61 1024.44, 743.61 1034.44, 733.61 1034.44 L120 1034.44 C120 1034.44, 110 1034.44, 110 1024.44 L110 967.56 C110 967.56, 110 957.56, 120 957.56 L711 957.56 C711 957.56, 721 957.56, 721 947.56 L721 800.95 C721 800.95, 721 800.45, 721.5 800.45 L721.5 800.45 C721.5 800.45, 722 800.45, 722 799.95 L722 169.99 C722 169.99, 722 159.99, 712 159.99 L115 159.99 C115 159.99, 105 159.99, 105 149.99 L105 94.01 C105 94.01, 105 84.01, 115 84.01"
+          />
+        </svg>
+
+        <div class="reels__lead">
+          <p class="reels__stage-eyebrow">{{ activeItem().label }}</p>
+
+          <figure
+            #featureCard
+            class="reels__feature"
+            [class.reels__feature--highlighted]="featureHighlighted()"
+            (click)="openViewer()"
+          >
+            <button
+              type="button"
+              class="reels__feature-mute"
+              [attr.aria-pressed]="isMainVideoMuted()"
+              [attr.aria-label]="isMainVideoMuted() ? 'Activar sonido' : 'Silenciar video'"
+              (click)="toggleMainVideoMuted($event)"
+            >
+              <span class="reels__feature-mute-icon" aria-hidden="true">
+                <span class="reels__feature-mute-speaker"></span>
+                @if (isMainVideoMuted()) {
+                  <span class="reels__feature-mute-off"></span>
+                }
+              </span>
+            </button>
+
+            <video
+              #featureReel
+              class="reels__feature-media"
+              [src]="activeItem().src"
+              [poster]="activeItem().poster"
+              loop
+              playsinline
+              preload="metadata"
+              disableremoteplayback
+              disablepictureinpicture
+              (loadedmetadata)="ensureVideoAudioState()"
+              [attr.aria-label]="activeItem().ariaLabel"
+            ></video>
+
+            <figcaption class="reels__feature-copy">
+              <h3 class="reels__feature-title">{{ activeItem().title }}</h3>
+              <p class="reels__feature-description">{{ activeItem().description }}</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="reels__thumbs" role="list" aria-label="Clips disponibles">
+          @for (item of content().items; track item.src; let index = $index) {
+            <button
+              type="button"
+              class="reels__thumb"
+              [class.reels__thumb--active]="index === activeIndex()"
+              (click)="selectItem(index)"
+            >
+              <span class="reels__thumb-card">
+                <span class="reels__thumb-face reels__thumb-face--front">
+                  <video
+                    class="reels__thumb-media"
+                    [src]="item.src"
+                    [poster]="item.poster"
+                    muted
+                    defaultMuted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    disableremoteplayback
+                    disablepictureinpicture
+                    (loadedmetadata)="ensureThumbnailMuted($event)"
+                    [attr.aria-label]="item.ariaLabel"
+                  ></video>
+
+                  <span class="reels__thumb-play" aria-hidden="true">
+                    <span class="reels__thumb-play-icon"></span>
+                  </span>
+                </span>
+
+                <span class="reels__thumb-face reels__thumb-face--back" aria-hidden="true">
+                  <video
+                    class="reels__thumb-media reels__thumb-media--mirrored"
+                    [src]="item.src"
+                    [poster]="item.poster"
+                    muted
+                    defaultMuted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    disableremoteplayback
+                    disablepictureinpicture
+                  ></video>
+
+                  <span class="reels__thumb-overlay"></span>
+                  <span class="reels__thumb-meta">
+                    <span class="reels__thumb-label">{{ index === activeIndex() ? 'Seleccionada' : item.label }}</span>
+                    <span class="reels__thumb-title">{{ index === activeIndex() ? 'En escena' : 'Ver clip' }}</span>
+                  </span>
+                </span>
+              </span>
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+
+  @if (isViewerOpen()) {
+    <div class="reels__viewer" role="dialog" aria-modal="true" [attr.aria-label]="activeItem().ariaLabel">
+      <button type="button" class="reels__viewer-backdrop" aria-label="Cerrar reel" (click)="closeViewer()"></button>
+
+      <div class="reels__viewer-panel">
+        <button type="button" class="reels__viewer-close" aria-label="Cerrar reel" (click)="closeViewer()">
+          <span aria-hidden="true">×</span>
+        </button>
+
+        <video
+          #fullscreenReel
+          class="reels__viewer-media"
+          [src]="activeItem().src"
+          [poster]="activeItem().poster"
+          loop
+          controls
+          playsinline
+          preload="metadata"
+          disableremoteplayback
+          disablepictureinpicture
+          (loadedmetadata)="ensureVideoAudioState()"
+          [attr.aria-label]="activeItem().ariaLabel"
+        ></video>
+      </div>
+    </div>
+  }
+</section>
