@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /auth/login
 Disallow: /auth/register
+Sitemap: https://mafeayala.clabs.click/sitemap.xml

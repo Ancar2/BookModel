@@ -19,6 +19,7 @@ import { HOME_MEASUREMENTS } from '../../data/measurements.content';
 import { HOME_REELS_CONTENT } from '../../data/reels.content';
 import { SeoService } from '../../../../core/services/seo.service';
 
+const SITE_URL = 'https://mafeayala.clabs.click';
 const HOME_SEO_TITLE = 'Mafe Ayala | Modelo Profesional Editorial y Comercial';
 const HOME_SEO_DESCRIPTION =
   'Mafe Ayala es una modelo profesional con enfoque editorial y comercial. Explora su portafolio, book, reels y contacto para campañas, shootings y colaboraciones.';
@@ -50,8 +51,8 @@ export class HomeComponent {
       title: HOME_SEO_TITLE,
       description: HOME_SEO_DESCRIPTION,
       keywords: HOME_SEO_KEYWORDS,
-      path: '/',
-      image: '/photos/hero.jpg',
+      path: `${SITE_URL}/`,
+      image: `${SITE_URL}/photos/hero.jpg`,
       imageAlt: 'Portafolio editorial y comercial de la modelo Mafe Ayala',
       type: 'profile',
       schema: [
@@ -61,8 +62,8 @@ export class HomeComponent {
           name: 'Mafe Ayala',
           jobTitle: 'Modelo profesional',
           description: HOME_SEO_DESCRIPTION,
-          image: '/photos/hero.jpg',
-          url: '/',
+          image: `${SITE_URL}/photos/hero.jpg`,
+          url: `${SITE_URL}/`,
           sameAs: HERO_CONTENT.socialLinks.map((item) => item.href),
           knowsAbout: ['Moda editorial', 'Modelaje comercial', 'Pasarela', 'Beauty campaigns'],
           contactPoint: {
@@ -76,7 +77,7 @@ export class HomeComponent {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'Mafe Ayala',
-          url: '/',
+          url: `${SITE_URL}/`,
           description: HOME_SEO_DESCRIPTION,
           inLanguage: 'es-CO'
         }
