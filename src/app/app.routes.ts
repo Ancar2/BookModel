@@ -4,7 +4,7 @@ import { RegisterComponent } from './features/auth/pages/register/register.compo
 import { HomeComponent } from './features/home/pages/home/home.component';
 
 export const titulosRutas = {
-    home: 'Model Book',
+    home: 'Mafe Ayala | Modelo Profesional Editorial y Comercial',
     login: 'Login',
     register: 'Registro',
     dashboard: 'Dashboard'
